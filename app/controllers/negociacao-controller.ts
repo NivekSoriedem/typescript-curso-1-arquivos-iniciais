@@ -1,7 +1,11 @@
+import { Negociacao } from "../models/negociacao.js";
+import { Negociacoes } from "../models/negociacoes.js";
+
 export class NegociacaoController {
-  private inputData;
-  private inputQuantidade;
-  private inputValor;
+  private inputData : HTMLInputElement;
+  private inputQuantidade : HTMLInputElement;
+  private inputValor : HTMLInputElement;
+  private negociacoes = new Negociacoes();
 
   constructor() {
     this.inputData = document.querySelector('#data');
@@ -9,10 +13,28 @@ export class NegociacaoController {
     this.inputValor = document.querySelector('#valor');
   }
 
-  adiciona() {
-    console.log(this.inputData.value);
-    console.log(this.inputQuantidade.value);
-    console.log(this.inputValor.value);
+  adiciona() : void {
+    const negociacao = this.criaNegociacao();
+    this.negociacoes.adiciona(negociacao);
+    const tamanhoLista = this.negociacoes.lista().length;
+    console.log(`lista[${tamanhoLista}] : `,this.negociacoes.lista());
+    this.limpaFormulario();
+  }
+
+  criaNegociacao() : Negociacao {
+    // manter os paramentros separados para ter mais clareza.
+    const date = new Date(this.inputData.value.replace(/-/g, ','));
+    const quantidade = parseInt(this.inputQuantidade.value);
+    const valor = parseFloat(this.inputValor.value);
+
+    return new Negociacao(date,quantidade,valor);
+  }
+
+  limpaFormulario() : void {
+    this.inputData.value = '';
+    this.inputQuantidade.value = '';
+    this.inputValor.value = '';
+    this.inputData.focus();
   }
 
 }
