@@ -6,19 +6,21 @@ export class Negociacao {
     private _valor: number
   ) {}
 
-  get data() {
-    return this._data;
+  get volume() : number {
+    return this._quantidade * this._valor;
   }
 
-  get quantidade() {
+  get data() : Date {
+    const copiaData = new Date(this._data.getTime())
+    return copiaData;
+  }
+
+  get quantidade() : number {
     return this._quantidade;
   }
-
-  get valor() {
+  
+  get valor() : number {
     return this._valor;
   }
 
-  get volume() {
-    return this._quantidade * this._valor;
-  }
 }
