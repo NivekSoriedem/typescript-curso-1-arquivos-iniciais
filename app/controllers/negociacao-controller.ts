@@ -1,23 +1,26 @@
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { NegociacaoView } from "../views/negociacoes-view.js";
 
 export class NegociacaoController {
   private inputData : HTMLInputElement;
   private inputQuantidade : HTMLInputElement;
   private inputValor : HTMLInputElement;
   private negociacoes = new Negociacoes();
+  private negociacoesView = new NegociacaoView("#negociacoesView");
 
   constructor() {
     this.inputData = document.querySelector('#data');
     this.inputQuantidade = document.querySelector('#quantidade');
     this.inputValor = document.querySelector('#valor');
+    this.negociacoesView.update(this.negociacoes);
   }
 
+  // essa funcao é chamada em app.ts que aciona após um submit do botao do front
   adiciona() : void {
     const negociacao = this.criaNegociacao();
     this.negociacoes.adiciona(negociacao);
-    const tamanhoLista = this.negociacoes.lista().length;
-    console.log(`lista[${tamanhoLista}] : `,this.negociacoes.lista());
+    this.negociacoesView.update(this.negociacoes);
     this.limpaFormulario();
   }
 
