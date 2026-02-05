@@ -10,6 +10,6 @@ export abstract class View <T> {
     this.elemento.innerHTML =  this.tamplate(modelo);;
   }
 
-  abstract tamplate (modelo: T) : string;
+  protected abstract tamplate (modelo: T) : string;
 
 }
