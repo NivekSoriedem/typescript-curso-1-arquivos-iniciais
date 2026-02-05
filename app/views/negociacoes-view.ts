@@ -4,7 +4,7 @@ import { View } from "./view.js";
 
   export class NegociacaoView extends View<Negociacoes> {
     
-    tamplate (modelo: Negociacoes) : string {
+    protected tamplate (modelo: Negociacoes) : string {
      return `
      <table class="table table-hover table-bordered">
         <thead>
@@ -18,7 +18,7 @@ import { View } from "./view.js";
             ${modelo.lista().map((negociacao) => {
               return`
               <tr>
-                <th>${new Intl.DateTimeFormat().format(negociacao.data)}</th>
+                <th>${this.formatarData(negociacao.data)}</th>
                 <th>${negociacao.quantidade}</th>
                 <th>${negociacao.valor}</th>              
               <tr>
@@ -27,6 +27,12 @@ import { View } from "./view.js";
         <tbody>
      <table>
      `
+    }
+
+    private formatarData(data: Date): string {
+      // estamos fazendo esse formador para o tamplate string ficar mais enxuto e 
+      // caso formos precisar dessa mesma data em outro tamplete.
+      return new Intl.DateTimeFormat().format(data)
     }
 
   }
