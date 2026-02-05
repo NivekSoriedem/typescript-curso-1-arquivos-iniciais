@@ -19,15 +19,14 @@ export class NegociacaoController {
   }
 
   // essa funcao é chamada em app.ts que aciona após um submit do botao do front
-  adiciona() : void {
+  public adiciona() : void {
     const negociacao = this.criaNegociacao();
     this.negociacoes.adiciona(negociacao);
-    this.negociacoesView.update(this.negociacoes);
-    this.mensagemView.update('linha adicionada com sucesso');
+    this.atualizaView();
     this.limpaFormulario();
   }
 
-  criaNegociacao() : Negociacao {
+  private criaNegociacao() : Negociacao {
     // manter os paramentros separados para ter mais clareza.
     const date = new Date(this.inputData.value.replace(/-/g, ','));
     const quantidade = parseInt(this.inputQuantidade.value);
@@ -36,11 +35,16 @@ export class NegociacaoController {
     return new Negociacao(date,quantidade,valor);
   }
 
-  limpaFormulario() : void {
+  private limpaFormulario() : void {
     this.inputData.value = '';
     this.inputQuantidade.value = '';
     this.inputValor.value = '';
     this.inputData.focus();
+  }
+
+  private atualizaView() : void {
+    this.negociacoesView.update(this.negociacoes);
+    this.mensagemView.update('linha adicionada com sucesso');
   }
 
 }

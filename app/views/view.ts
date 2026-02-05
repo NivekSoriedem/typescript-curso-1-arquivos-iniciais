@@ -6,7 +6,7 @@ export abstract class View <T> {
     this.elemento = document.querySelector(seletor);
   }
 
-  update(modelo: T): void {
+  public update(modelo: T): void {
     this.elemento.innerHTML =  this.tamplate(modelo);;
   }
 
