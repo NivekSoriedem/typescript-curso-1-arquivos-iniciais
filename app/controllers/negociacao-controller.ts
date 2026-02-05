@@ -2,6 +2,7 @@ import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacaoView } from "../views/negociacoes-view.js";
+import { diaDaSemana } from "../ENUM/diasDaSemana.js";
 
 export class NegociacaoController {
   private inputData : HTMLInputElement;
@@ -10,6 +11,8 @@ export class NegociacaoController {
   private negociacoes = new Negociacoes();
   private negociacoesView = new NegociacaoView("#negociacoesView");
   private mensagemView = new MensagemView("#mensagemView");
+  private readonly DOMINGO = 0;
+  private readonly SABADO = 6; 
 
   constructor() {
     this.inputData = document.querySelector('#data');
@@ -21,9 +24,18 @@ export class NegociacaoController {
   // essa funcao é chamada em app.ts que aciona após um submit do botao do front
   public adiciona() : void {
     const negociacao = this.criaNegociacao();
+    
+    if (!this.eDiaUtilEssa(negociacao.data)) {
+      return this.mensagemView.update('A negociação só é criada com dias uteis.'); 
+    }
+
     this.negociacoes.adiciona(negociacao);
-    this.atualizaView();
+    this.atualizaView()
     this.limpaFormulario();
+  }
+
+  private eDiaUtilEssa(data: Date): boolean {
+    return data.getDay() === diaDaSemana.DOMINGO || data.getDay() === diaDaSemana.SABADO;
   }
 
   private criaNegociacao() : Negociacao {
