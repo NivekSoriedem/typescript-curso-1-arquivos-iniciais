@@ -35,7 +35,8 @@ export class NegociacaoController {
   }
 
   private eDiaUtilEssa(data: Date): boolean {
-    return data.getDay() === diaDaSemana.DOMINGO || data.getDay() === diaDaSemana.SABADO;
+    const result = data.getDay() > diaDaSemana.DOMINGO && data.getDay() < diaDaSemana.SABADO;
+    return result;
   }
 
   private criaNegociacao() : Negociacao {
