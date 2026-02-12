@@ -40,12 +40,14 @@ export class NegociacaoController {
   }
 
   private criaNegociacao() : Negociacao {
-    // manter os paramentros separados para ter mais clareza.
-    const date = new Date(this.inputData.value.replace(/-/g, ','));
-    const quantidade = parseInt(this.inputQuantidade.value);
-    const valor = parseFloat(this.inputValor.value);
+    const negociacaoTemp = new Negociacao(null,0,0);
+    const negociacao = negociacaoTemp.criaDe(
+      this.inputData.value,
+      this.inputQuantidade.value,
+      this.inputValor.value
+    )
 
-    return new Negociacao(date,quantidade,valor);
+    return negociacao;
   }
 
   private limpaFormulario() : void {
