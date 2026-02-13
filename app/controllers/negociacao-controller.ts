@@ -11,13 +11,11 @@ export class NegociacaoController {
   private negociacoes = new Negociacoes();
   private negociacoesView = new NegociacaoView("#negociacoesView");
   private mensagemView = new MensagemView("#mensagemView");
-  private readonly DOMINGO = 0;
-  private readonly SABADO = 6; 
 
   constructor() {
-    this.inputData = document.querySelector('#data');
-    this.inputQuantidade = document.querySelector('#quantidade');
-    this.inputValor = document.querySelector('#valor');
+    this.inputData = document.querySelector('#data') as HTMLInputElement;
+    this.inputQuantidade = document.querySelector('#quantidade') as HTMLInputElement;
+    this.inputValor = document.querySelector('#valor') as HTMLInputElement;
     this.negociacoesView.update(this.negociacoes);
   }
 
